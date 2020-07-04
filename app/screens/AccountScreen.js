@@ -20,7 +20,7 @@ const menuItems = [
       name: "email",
       backgroundColor: colors.secondary
     },
-    targetScreen: "Message"
+    targetScreen: "Messages"
   }
 ];
 
@@ -31,7 +31,7 @@ function AccountScreen({ navigation }) {
         <ListItem
           title="Mae Meier"
           subTitle="maemeier@me.com"
-          image={require("../assets/mosh.jpg")}
+          image={require("../assets/mae.png")}
         />
       </View>
       <View style={styles.container}>
