@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 
 import Card from "../components/Card";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 import listingApi from "../api/listings";
+import Button from "../components/Button";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
+  const [error, setError] = useState([]);
 
   const loadListings = async () => {
     const response = await listingApi.getListings();
+    if (!response.ok) return setError(true);
+    setError(false);
     setListings(response.data);
   };
   useEffect(() => {
@@ -19,6 +23,12 @@ function ListingsScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
+      {error && (
+        <>
+          <Text>Couldn't retrieve the listings</Text>
+          <Button title="Retry" onPress={loadListings} />
+        </>
+      )}
       <FlatList
         data={listings}
         keyExtractor={listing => listing.id.toString()}
